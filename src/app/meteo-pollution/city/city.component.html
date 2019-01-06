@@ -1,0 +1,9 @@
+<mat-icon *ngIf="!city || !city.position && !city.address; else search">location_off</mat-icon>
+
+<ng-template #search>
+    <mat-icon *ngIf="!city.address; else display">location_on</mat-icon>
+</ng-template>
+
+<ng-template #display>
+    <span>{{ city.address.county }}</span>
+</ng-template>

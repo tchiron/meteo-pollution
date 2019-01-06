@@ -1,0 +1,39 @@
+<section fxFlex="100" fxLayout="column" [ngClass]="!city || !city.meteo ? 'indeterminate' : 'determinate'">
+  <h3 class="temperature" fxLayout="column" fxFlex="80" fxLayoutAlign="center center">
+    <mat-spinner color="primary" [diameter]="20" *ngIf="!city || !city.meteo; else temperature"></mat-spinner>
+  </h3>
+  <article class="detail" fxLayout="row" fxFlex="1 0 20" *ngIf="city && city.meteo">
+    <div fxFlex="100" fxLayoutAlign="center center">
+      <span fxFlex.xs="33" fxLayoutAlign="center center" fxLayout="column">
+        <b class="mat-small">Humidity</b>
+        <i>{{ city.meteo.main.humidity| number:'1.0-0' }}%</i>
+      </span>
+      <span fxFlex.xs="33" fxLayoutAlign="center center" fxLayout="column">
+        <b class="mat-small">Wind</b>
+        <i>{{ speed| number:'1.0-1' }} km/h</i>
+      </span>
+      <span fxFlex.xs="33" fxLayoutAlign="center center" fxLayout="column">
+        <b class="mat-small">Min / Max</b>
+        <i>{{ city.meteo.main.temp_min| number:'1.1-1' }}° / {{ city.meteo.main.temp_max| number:'1.1-1' }}°</i>
+      </span>
+    </div>
+  </article>
+  <!-- <div *ngIf="city && city.meteo">
+    <img src="http://openweathermap.org/img/w/{{ city.meteo.weather.icon }}.png" alt=""><br>
+    <span>{{ city.meteo.weather.main }}</span><br>
+    <span>{{ city.meteo.weather.description }}</span><br>
+    <span>Plage : {{ city.meteo.main.temp_min }}° / {{ city.meteo.main.temp_max }}°</span><br>
+    <span>Pression atmosphérique : {{ city.meteo.main.pressure }}</span><br>
+    <span>Provenance du vent : {{ cardinal }}</span><br>
+    <span>Direction : {{ city.meteo.wind.deg }}°</span><br>
+    <span>Couverture nuageuse : {{ city.meteo.clouds.all }}%</span><br>
+    <span>Heure de la donnée : {{ timeData }}</span><br>
+    <span>Lever de soleil : {{ sunrise }}</span><br>
+    <span>Coucher de soleil : {{ sunset }}</span>
+  </div> -->
+</section>
+
+<ng-template #temperature>
+  <span class="mat-display-3">{{ city.meteo.main.temp| number:'1.1-1' }}°</span>
+  <span class="mat-subheading-1">{{ city.meteo.weather.description|titlecase }}</span>
+</ng-template>

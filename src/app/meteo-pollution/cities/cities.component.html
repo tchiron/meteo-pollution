@@ -1,0 +1,15 @@
+<mat-nav-list>
+  <h2 class="mat-headline">Cities</h2>
+  <a mat-list-item *ngFor="let city of cities">{{ city.address.county }}</a>
+
+  <form [formGroup]="cityForm" (ngSubmit)="inputCity.blur()">
+    <mat-form-field>
+      <input #inputCity (blur)="onSubmit($event)" matInput placeholder="Add a city" formControlName="cityName" [matAutocomplete]="auto">
+      <mat-autocomplete #auto="matAutocomplete">
+        <mat-option *ngFor="let geocode of (geocodes | async)?.results" [value]="geocode">{{ geocode.display_name }}</mat-option>
+      </mat-autocomplete>
+      <mat-error *ngIf="cityForm.get('cityName').errors && cityForm.get('cityName').errors.minlength">Too short</mat-error>
+      <mat-error *ngIf="cityForm.get('cityName').errors && cityForm.get('cityName').errors.maxlength">Too long</mat-error>
+    </mat-form-field>
+  </form>
+</mat-nav-list>

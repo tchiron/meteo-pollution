@@ -1,0 +1,29 @@
+<mat-sidenav-container fullscreen>
+  <mat-sidenav #sidenav mode="over" [(opened)]="opened" color="accent">
+    <mp-cities (onCity)="set($event)"></mp-cities>
+  </mat-sidenav>
+  <mat-sidenav-content fxLayout="column">
+    <mat-progress-bar mode="query" *ngIf="!city || !city.address; else indeterminate"></mat-progress-bar>
+    <mat-toolbar color="primary" fxLayoutAlign="center center">
+      <mat-toolbar-row>
+        <button mat-icon-button (click)="sidenav.toggle()">
+          <mat-icon fxLayoutAlign="center center">menu</mat-icon>
+        </button>
+        <mp-city (onCity)="set($event)" [city]="city" fxLayoutAlign="center center" fxFlex="grow"></mp-city>
+        <button mat-icon-button [routerLink]="['/settings']">
+          <mat-icon fxLayoutAlign="center center">settings</mat-icon>
+        </button>
+      </mat-toolbar-row>
+    </mat-toolbar>
+    <mp-meteo fxFlex="50" [city]="city"></mp-meteo>
+    <mp-pollution fxFlex="50" [city]="city"></mp-pollution>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
+<ng-template #indeterminate>
+  <mat-progress-bar *ngIf="!city.meteo; else half" mode="indeterminate"></mat-progress-bar>
+</ng-template>
+
+<ng-template #half>
+  <mat-progress-bar *ngIf="!city.pollution" mode="determinate" value="50"></mat-progress-bar>
+</ng-template>

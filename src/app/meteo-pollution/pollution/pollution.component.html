@@ -1,0 +1,16 @@
+<section fxFlex="100" fxLayoutAlign="center center" fxLayout="row" [ngClass]="!city || !city.pollution ? 'indeterminate' : 'determinate'">
+  <mat-spinner color="primary" [diameter]="20" *ngIf="!city || !city.pollution; else pollution"></mat-spinner>
+</section>
+
+<ng-template #pollution>
+  <article class="pollution" fxFlex="100" fxLayoutGap="3%" fxLayoutGap.xs="20px" fxLayout="column" fxLayoutAlign="center stretch">
+    <span class="detail" fxFlex="80" fxLayout="row" fxLayoutAlign="center center">
+      <b class="mat-small" fxFlex="40" fxLayoutAlign="center">CN AQI</b>
+      <i fxFlex="60" fxLayoutAlign="center">{{ city.pollution.aqicn }} µg/m3 ({{ city.pollution.maincn }})</i>
+    </span>
+    <span class="detail" fxFlex="80" fxLayout="row" fxLayoutAlign="center center">
+      <b class="mat-small" fxFlex="40" fxLayoutAlign="center">US AQI</b>
+      <i fxFlex="60" fxLayoutAlign="center">{{ city.pollution.aqius }} µg/m3 ({{ city.pollution.mainus }})</i>
+    </span>
+  </article>
+</ng-template>
